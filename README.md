@@ -463,3 +463,65 @@ With both Deck A and Deck B inputs grounded, the mixer output noise was measured
 - Observed spectral floor: approximately -95 to -105 dBV across much of the measured band
 
 The FFT measurement is treated as a bench-level noise characterization rather than a precision audio-noise measurement.
+
+## Final Bench Characterization
+
+### Output Noise
+
+Both channel inputs were grounded at the volume-stage inputs while the mixer remained powered normally.
+
+Measured at `MASTER_OUT`:
+
+- Peak-to-peak output noise: approximately **20 mVpp**
+- AC RMS output noise: approximately **2.16 mVrms**
+- FFT span: **0–10 kHz**
+- FFT bin size: approximately **95.4 Hz/bin**
+- Observed spectral floor: approximately **-95 to -105 dBV** across much of the measured band
+
+The FFT result is treated as a bench-level noise estimate rather than a precision audio-analyzer measurement.
+
+### Crosstalk / Channel Isolation
+
+Crosstalk was measured by driving one deck with a 1 kHz sine wave while grounding the opposite deck input and selecting the grounded deck using the crossfader.
+
+The driven signal was measured immediately before the crossfader, while residual leakage was measured at `MASTER_OUT`.
+
+| Direction | Driven Signal | Residual at MASTER_OUT | Measured Isolation |
+|---|---:|---:|---:|
+| Deck A → Deck B | 1.02 Vpp | 20 mVpp | approximately -34.2 dB |
+| Deck B → Deck A | 1.02 Vpp | 20 mVpp | approximately -34.2 dB |
+
+Isolation was calculated using:
+
+`Isolation = 20 log10(Vleak / Vsignal)`
+
+Because the measured residual was approximately equal to the previously measured 20 mVpp output-noise level, the actual channel isolation may be better than -34 dB and was limited by the measurement floor of the bench setup.
+
+### Headroom / Clipping Test
+
+Headroom was evaluated using a 1 kHz sine wave while selecting one deck at a time.
+
+For both Deck A and Deck B:
+
+- Clean generator output: **0.80 Vpp**
+- Clean `MASTER_OUT`: approximately **0.80 Vpp**
+- No visible mixer clipping was observed at this level
+- At approximately **0.90 Vpp generator setting**, the waveform was already visibly clipped at the function-generator output itself
+
+Because the source waveform distorted before a mixer-specific clipping limit could be observed, the mixer headroom exceeded the available clean test-source range.
+
+The correct conclusion from this test is:
+
+**No mixer clipping was observed up to 0.80 Vpp input/output at 1 kHz. Further headroom characterization was limited by the available clean function-generator output.**
+
+### Final Audio Playback Validation
+
+After completing bench characterization, the mixer was reconnected to a real audio source and powered speaker.
+
+The complete signal path was verified:
+
+**Audio Source → Volume → TL082 Buffer → Variable LPF → Crossfader → Active Summer → MASTER_OUT → Powered Speaker AUX IN**
+
+Both channels, volume controls, filters, crossfader, summing stage, and final audio output operated correctly.
+
+Successful end-to-end audio playback was confirmed after completion of all bench measurements.
