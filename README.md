@@ -450,3 +450,16 @@ The project evolved through several hardware and simulation iterations:
 13. Full real-audio end-to-end validation
 
 The final breadboard architecture prioritizes modularity, predictable stage interaction, simple analog implementation, and ease of measurement and debugging.
+
+
+### Output Noise
+
+With both Deck A and Deck B inputs grounded, the mixer output noise was measured at `MASTER_OUT`.
+
+- Output noise: ~20 mVpp
+- AC RMS noise: ~2.1 mVrms
+- FFT span: 0–10 kHz
+- FFT bin size: 95.4 Hz
+- Observed spectral floor: approximately -95 to -105 dBV across much of the measured band
+
+The FFT measurement is treated as a bench-level noise characterization rather than a precision audio-noise measurement.
